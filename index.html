@@ -1,24 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    document ready
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
     <!-- <script src="assets/javacript/game.js"></script> -->
     <title>Psychic Word Game</title>
 </head>
+
 <body>
-    <h1>Psychic Word Game</h1>
-    
-   <script type= "text"></script>
-    
-    
-    
-    
-    
-    
-   
+    <div class="container">
+        <div class="row">
+            <h1>Psychic Word Game</h1>
+        </div>
+
+
+        <div class="container">
+            <div class="row">
+                <h6>Guess what letter I'm thinking of...</h6>
+            </div>
+            <div class="row">
+                <div class="col-md-1, info">
+                    Wins :
+                </div>
+
+                <div class="populate" id="winCount">
+                    0
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-1, ">
+                            Losses :
+                        </div>
+
+                        <div class="populate" id="lossCount">
+                            0
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12, info">
+                            Guesses Remaining :
+                        </div>
+
+                        <div class="populate" id="guessesRemaining">
+                            10
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12, info">
+                            Your Guesses :
+                        </div>
+
+                        <div class="populate" id="guessedLetters">
+                            guesses..
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <script>
+
+
+                //define variables for game play
+                let winCount = 1;
+                let lossCount = 0;
+                let guessesRemaining = 10;
+                let guessedLetters = [];
+
+                // set up array for computer to choose from
+                let alphabet =
+                    ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q"
+                        , "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+                // set up the computer to pick a random indexed value from aray
+                let randomIndex = Math.floor(Math.random() * alphabet.length);
+                let computerChoice = alphabet[randomIndex];
+
+                console.log("computer choice  ", computerChoice);
+
+                // add a listener for the user to press a key
+                document.onkeyup = function (event) {
+                    let userChoice = event.key;
+
+                    // reset computer choice if the user loses
+                    if (guessesRemaining <= 0) {
+                        lossCount++;
+                        document.getElementById("lossCount").innerHTML = lossCount++;
+                        console.log("You lost!");
+                        //   alert("You lost!");
+                        guessesRemaining = 9;
+                        guessedLetters = [];
+                        document.getElementById("guessedLetters").innerHTML = guessedLetters;
+                        document.getElementById("guessesRemaining").innerHTML = 10;
+                        randomIndex = Math.floor(Math.random() * alphabet.length);
+                        computerChoice = alphabet[randomIndex];
+                        console.log("computer choice  ", computerChoice);
+                    }
+                    // compares the randomly selected computer choice and user choice
+                    if (computerChoice === userChoice) {
+                        console.log("You won!");
+                        //   alert("You won!");
+                        document.getElementById("winCount").innerHTML = winCount++;
+                        guessedLetters = [];
+                        document.getElementById("guessedLetters").innerHTML = guessedLetters;
+                        randomIndex = Math.floor(Math.random() * alphabet.length);
+                        computerChoice = alphabet[randomIndex];
+                        console.log("computer choice  ", computerChoice);
+                        guessesRemaining = 10;
+                        document.getElementById("guessesRemaining").innerHTML = 10;
+                        console.log("computer choice  ", computerChoice);
+                    }
+                    else {
+                        console.log("Guess again!");
+                        document.getElementById("guessesRemaining").innerHTML = guessesRemaining--;
+                        guessedLetters.push(userChoice);
+                        document.getElementById("guessedLetters").innerHTML = guessedLetters;
+                    }
+                }
+            </script>
+
+
+
+
+
+
+
 </body>
+
 </html>
